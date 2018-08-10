@@ -16,6 +16,11 @@ header{
     text-align: center;
     color: #fff;
 }
+.input{
+    position: absolute;
+    top:-5px;
+    right:20px;
+}
 h1{
     font-family: Arial, Helvetica, sans-serif;
     font-size: 3em;
@@ -42,6 +47,11 @@ h1{
         width: 100%;
     }
 }
+@media (max-width:633px){
+    .input{
+        left:0px;
+    }
+}
 
 #search, #btn{
     margin: 10px 10px;
@@ -52,8 +62,7 @@ h1{
     box-shadow: 1px 1px 1px 1px black
 }
 #search:focus{
-    box-shadow: 1px 1px 1px 1px black;
-    background: rgba(6, 149, 168, 0.219)
+    background:white;
 }
 #btn:visited{
     box-shadow: none

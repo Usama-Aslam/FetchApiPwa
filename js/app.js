@@ -9,66 +9,41 @@ if ('serviceWorker' in navigator) {
 /* app script */
 const main = document.querySelector("#div");
 window.addEventListener('load', async e => {
-    myFollowers();
+    Followers();
 })
 
+$(document).ready(function(){
+    $("#search").on("keyup", function() {
+        var search = document.getElementById('search');
+        var filter = search.value.toLocaleUpperCase(); 
+        var card_body = document.getElementsByClassName('card');//li
 
-async function myFollowers() {
-    const res = await fetch(`https://api.github.com/users/ManalLiaquat/followers`)
+        for (i = 0; i < card_body.length; i++) {
+            var h5 = card_body[i].getElementsByTagName('h6')[0];
+            if (h5.innerHTML.toLocaleUpperCase().indexOf(filter) > -1) {
+            
+                card_body[i].style.display = 'inline-block'; 
+            }
+            else { 
+                card_body[i].style.display = 'none'; 
+            }
+        }
+    });
+});
+
+async function Followers() {
+    const res = await fetch(`https://api.github.com/users/Usama-Aslam/followers`)
     const json = await res.json();
     console.log(json);
-
     main.innerHTML = json.map((v, i) => {
-
         return `
         <div class="card" style="width: 18rem; margin:10px;">
             <img class="card-img-top" src="${v.avatar_url}" alt="Card image cap">
             <div class="card-body" style="padding:10px;">
                 <h6 class="card-title">${v.login}</h6>
                 <p class="card-text">UserID: ${v.id}</p>
-                <a href="${v.html_url}" target="_blank" class="btn btn-success btn-block">Goto Profile</a>
+                <a href="${v.html_url}" target="_blank" class="btn btn-info btn-block">View Profile</a>
             </div>
-        </div>
-        `
+        </div>`
     });
 }
-
-/* alternate method */
-
-// if (i % 5 == 0) {
-        //     cardDeck = document.createElement("div");
-        //     cardDeck.className = "card-deck";
-        //     main.appendChild(cardDeck);
-        // }
-
-        // var card = document.createElement('div');
-        // card.className = 'card';
-        // card.style.width = '18rem';
-        // card.style.margin = '20px';
-        // cardDeck.appendChild(card);
-
-        // var img = document.createElement('img');
-        // img.className = 'card-img-top';
-        // img.setAttribute('src', v.avatar_url);
-        // card.appendChild(img);
-
-        // var card_body = document.createElement('div');
-        // card_body.style.padding = '10px';
-        // card.appendChild(card_body);
-
-        // var name = document.createElement('h5');
-        // name.className = 'card-title';
-        // name.innerHTML = v.login;
-        // card_body.appendChild(name);
-
-        // var id = document.createElement('p');
-        // id.className = 'card-text';
-        // id.innerHTML = `UserID: ${v.id}`;
-        // card_body.appendChild(id);
-
-        // var link = document.createElement('a');
-        // link.className = 'btn btn-primary';
-        // link.href = v.html_url;
-        // link.target = '_blank';
-        // link.innerHTML = 'Goto Profile';
-        // card_body.appendChild(link);
